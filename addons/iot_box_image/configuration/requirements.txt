@@ -24,3 +24,4 @@ vcgencmd; sys_platform == "linux"
 websocket-client==1.6.3
 Werkzeug==2.0.2
 zeep==4.2.1
+pyzk
