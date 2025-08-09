@@ -38,9 +38,6 @@ if [ ! -d "$CLONE_DIR" ]; then
     git config core.sparsecheckout true
     tee -a .git/info/sparse-checkout < "${BUILD_UTILS_DIR}/sparse-checkout" > /dev/null
     git read-tree -mu HEAD
-    
-
-    git ls-files
     git remote set-url origin "https://github.com/shamsan/ittech-odoo.git" # ensure remote is the original repozzz
 fi
 FILES_TO_CHECK=(
@@ -63,26 +60,26 @@ FILES_TO_CHECK=(
         echo "[✘] غير موجود: $path"
     fi
     done
-# cd "${__dir}"
+cd "${__dir}"
 
-# TARGET_DIR="/home/shamsan/Desktop/odoo/odoo-18.3/addons/iot_box_image"
-# SOURCE_IMAGE="$TARGET_DIR/downloaded_ras/2024-11-19-raspios-bookworm-armhf-lite.img.xz"
-# DEST_IMAGE="$TARGET_DIR/raspios.img.xz"
+TARGET_DIR="/home/shamsan/Desktop/odoo/odoo-18.3/addons/iot_box_image"
+SOURCE_IMAGE="$TARGET_DIR/downloaded_ras/2024-11-19-raspios-bookworm-armhf-lite.img.xz"
+DEST_IMAGE="$TARGET_DIR/raspios.img.xz"
 
-# # تحقق إذا ما فيه صورة مفكوكة حالياً
-# if ! ls "$TARGET_DIR"/*raspios*.img 1> /dev/null 2>&1 ; then
-#     echo "نسخ الصورة من المصدر المحلي..."
-#     cp "$SOURCE_IMAGE" "$DEST_IMAGE"
-#     unxz --verbose "$DEST_IMAGE"
-# fi
+# تحقق إذا ما فيه صورة مفكوكة حالياً
+if ! ls "$TARGET_DIR"/*raspios*.img 1> /dev/null 2>&1 ; then
+    echo "نسخ الصورة من المصدر المحلي..."
+    cp "$SOURCE_IMAGE" "$DEST_IMAGE"
+    unxz --verbose "$DEST_IMAGE"
+fi
 
-# # الحصول على اسم الصورة بعد فك الضغط
-# RASPIOS=$(echo "$TARGET_DIR"/*raspios*.img)
+# الحصول على اسم الصورة بعد فك الضغط
+RASPIOS=$(echo "$TARGET_DIR"/*raspios*.img)
 
 # Download ngrok for ARM and place it in the overwrite directory.
-# USR_BIN="${OVERWRITE_FILES_BEFORE_INIT_DIR}/usr/bin/"
-# mkdir -pv "${USR_BIN}"
-# if ! file_exists "${USR_BIN}/ngrok" ; then
-#     wget -O /tmp/ngrok.tgz 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm.tgz'
-#     tar xvzf /tmp/ngrok.tgz -C "${USR_BIN}" --remove-files
-# fi
+USR_BIN="${OVERWRITE_FILES_BEFORE_INIT_DIR}/usr/bin/"
+mkdir -pv "${USR_BIN}"
+if ! file_exists "${USR_BIN}/ngrok" ; then
+    wget -O /tmp/ngrok.tgz 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm.tgz'
+    tar xvzf /tmp/ngrok.tgz -C "${USR_BIN}" --remove-files
+fi

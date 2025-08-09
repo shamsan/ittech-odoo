@@ -216,6 +216,11 @@ update-rc.d -f hostapd remove
 update-rc.d -f nginx remove
 update-rc.d -f dnsmasq remove
 
+chmod +x /home/pi/odoo/addons/iot_box_image/configuration/setup_ramdisks.sh
+chmod +x /home/pi/odoo/addons/iot_box_image/configuration/led_manager.sh
+chmod +x /home/pi/odoo/addons/iot_box_image/configuration/checkout.sh
+chmod +x /home/pi/odoo/addons/iot_box_image/configuration/upgrade.sh
+
 systemctl enable ramdisks.service
 systemctl disable dphys-swapfile.service
 systemctl enable ssh
