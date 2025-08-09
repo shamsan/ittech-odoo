@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 
 # cd /home/pi/odoo
-# localbranch=$(git symbolic-ref -q --short HEAD)
-# localremote=$(git config branch.$localbranch.remote)
+localbranch=$(git symbolic-ref -q --short HEAD)
+localremote=$(git config branch.$localbranch.remote)
 
 # if [[ "$(git remote get-url "$localremote")" != *odoo/odoo* ]]; then
 #     git remote set-url "${localremote}" "https://github.com/odoo/odoo.git"
 # fi
 
-# echo "addons/iot_base" >> .git/info/sparse-checkout
-# echo "addons/iot_drivers" >> .git/info/sparse-checkout
+if [[ "$(git remote get-url "$localremote")" != *shamsan/ittech-odoo* ]]; then
+    git remote set-url "${localremote}" "https://github.com/shamsan/ittech-odoo.git"
+fi
 
-# git fetch "${localremote}" "${localbranch}" --depth=1
-# git reset "${localremote}"/"${localbranch}" --hard
-# sudo git clean -dfx
+echo "addons/iot_base" >> .git/info/sparse-checkout
+echo "addons/iot_drivers" >> .git/info/sparse-checkout
+
+git fetch "${localremote}" "${localbranch}" --depth=1
+git reset "${localremote}"/"${localbranch}" --hard
+sudo git clean -dfx
 
 # Update requirements
 REQUIREMENTS_FILE="/home/pi/odoo/addons/iot_box_image/configuration/requirements.txt"
